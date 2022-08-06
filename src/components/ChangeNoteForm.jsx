@@ -16,13 +16,13 @@ export default function ChangeNote() {
 	const [count, setCount] = useState(0);
 
 	const onSave = (e) => {
+		setCount(1);
 		e.preventDefault();
 		e.stopPropagation();
 		
 		const newItem = {...note, description: title}
 		if (title !== '') {
 			save(newItem);
-			setCount(1);
 		} else setCount(0);
 	}
 
