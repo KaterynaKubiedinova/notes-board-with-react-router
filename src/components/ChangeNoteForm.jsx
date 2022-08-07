@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useNotes from "../hooks/useNotes"
-import useTheme from "../hooks/useTheme";
-
+import ChangeThemeBtn from "./changeTheme";
 
 export default function ChangeNote() {
-	const {theme, setTheme, THEMES} = useTheme();
 	const {save} = useNotes();
 	
 	const location = useLocation();
@@ -18,18 +16,11 @@ export default function ChangeNote() {
 	const onSave = (e) => {
 		setCount(1);
 		e.preventDefault();
-		e.stopPropagation();
 		
 		const newItem = {...note, description: title}
 		if (title !== '') {
 			save(newItem);
 		} else setCount(0);
-	}
-
-	const changeTheme = () => {
-		if (theme === THEMES.LIGHT) {
-			setTheme(THEMES.DARK);
-		} else setTheme(THEMES.LIGHT);
 	}
 
 	const onInputChange = (e) => {
@@ -39,12 +30,7 @@ export default function ChangeNote() {
 
 	return (
 		<div className="form-wrapper">
-			<h1>NOTES</h1>
-			<div className="main-buttons">
-				<button onClick={changeTheme}>
-					{theme === 'light' ? 'Change theme to dark' : 'Change theme to light'}
-				</button>
-			</div>
+			<ChangeThemeBtn/>
 			<form onSubmit={onSave} className={"edit-form"}>
 				<input
 					type={'text'}
